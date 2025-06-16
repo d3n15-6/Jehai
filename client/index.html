@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Jehai</title>
+</head>
+
+<body>
+    <div class="container app">
+        <div class="row app-one">
+            <!-- Barra lateral -->
+            <div class="col-sm-4 side">
+                <div class="side-one">
+                    <!-- Encabezado -->
+                    <div class="row heading">
+                        <div class="col-3 heading-avatar">
+                            <div class="heading-avatar-icon">
+                                <img class="img-fluid rounded-circle" src="">
+                            </div>
+                            <div class="col-1  heading-dot text-end">
+                                <i class="fa fa-ellipsis-v fa-2x" aria-hidden="true"></i>
+                            </div>
+                            <div class="col-2 heading-compose text-end">
+                                <i class="fa fa-comments fa-2x" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <!-- Barra de busqueda -->
+                        <div class="row searchBox">
+                            <div class="col-12 searchBox-inner">
+                                <div class="input-group">
+                                    <input id="searchText" type="text" class="form-control" placeholder="Search">
+                                    <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Lista de contactos -->
+                        <div class="row sideBar" id="contactos">
+                            <!-- Ejemplo de contactos dinamicos -->
+                            <div class="row sideBar-body">
+                                <div class="col-3 sideBar-avatar">
+                                    <div class="avatar-icon">
+                                        <!-- Aqui va la imagen del perfil del contacto -->
+                                        <img class="img-fluid rounded-circle" src=""> 
+                                    </div>
+                                </div>
+                                <div class="col-9 sideBar-main">
+                                    <div class="row">
+                                        <div class="col-8 sideBar-name">
+                                            <span class="name-meta">John Doe</span>
+                                        </div>
+                                        <!--  -->
+                                        <div class="col-4 text-end sideBar-time">
+                                            <span class="time-meta">18:18</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Aqui mas contactos -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Caja de conversacion -->
+                 <div class="col-sm-8 conversation">
+                    <div class="row heading">
+                        <div class="col-2 col-md-1 heading-avatar">
+                            <div class="heading-avatar-icon">
+                                <img class="img-fluid rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar6.png">
+                            </div>
+                        </div>
+                        <div class="col-8 heading-name">
+                            <a class="heading-name-meta">John Doe</a>
+                            <span class="heading-online">Online</span>
+                        </div>
+                        <div class="col-1 text-end heading-dot">
+                            <i class="fa fa-ellipsis-v fa-2x" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="row message" id="conversation">
+                        <!-- 
+                            Aqui va el mensaje de conversacion.
+                        -->
+                    </div>
+                    <div class="row reply">
+                        <div class="col-1 reply-emojis">
+                            <i class="fa fa-smile fa-2x"></i>
+                        </div>
+                        <div class="col-9 reply-main">
+                            <textarea class="form-control" row="1" id="comment" playholder="Type as message.."></textarea>
+                        </div>
+                        <div class="fa fa-microphone fa-2x" aria-hidden="true"></div>
+                        <div class="col-1 reply-send">
+                            <i class="fa fa-paper-plane fa-2x" aria-hidden="true" id="send-message"></i> 
+                        </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+    <!-- Incluir Bootstrap JS y Socket.IO -->
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module">
+        //import { io } from 'https://cdn.socket.io/4.3.2/sokect.io.esm.min.js'
+
+        const socket = io()
+        const comment = document.getElementById('comment')
+        const conversation = document.getElementById('conversation')
+        const sendButton = document.getElementById('send-menssage')
+        const message = document.getElementById('message')
+        const messages = document.getElementById('messages')
+
+        // Enviar mensaje al hacer click en el boton.
+        sendButton.addEventListener('click', () => {
+            if(comment.value.trim()){
+                socket.emit('chat message', comment.value)
+                comment.value = '';
+            }
+        })
+        // Recibir el mensaje
+        socket.on('chat message', (msg) => {
+            const messageDiv = document.createElement('div')
+            messageDiv.classList.add('row', 'message-body')
+            messageDiv.innerHTML = `
+                <div class="col-12 messager-main-sender">
+                    <div class="sender">
+                        <div class="message-text">${msg}</div>
+                        <span class="message-time text-end">${new Date().toLocaleDateString()}</span>
+                    </div>
+                </div>
+            `;
+        })
+        conversation.appendChild(messageDiv)
+        conversation.scrollTo = conversation.scrollHeight
+    </script>
+</body>
+
+</html>

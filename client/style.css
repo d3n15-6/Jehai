@@ -1,6 +1,9 @@
-
 body {
     padding: 25px;
+}
+.chat-container {
+    display: flex;
+    height: 100vh;
 }
 .fa-2x {
     font-size: 1.5em;

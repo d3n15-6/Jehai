@@ -5,6 +5,9 @@ body {
     display: flex;
     height: 100vh;
 }
+.chat-box {
+    
+}
 .fa-2x {
     font-size: 1.5em;
 }
@@ -129,12 +132,11 @@ body {
     box-shadow: none;
 }
 .sidebar {
-    padding: 0 !important;
-    margin: 0 !important;
-    background-color: #fff;
+    width: 30%;
+    background: #f8f9fa;
+    padding: 15px;
+    border-right: 1px solid #ddd;
     overflow-y: auto;
-    border: 1px solid #f7f7f7;
-    height: calc(100% - 120px);
 }
 .sideBar-body {
     position: relative;

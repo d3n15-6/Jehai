@@ -14,7 +14,13 @@ body {
 }
 
 .messages {
-    
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.message {
+
 }
 
 .fa-2x {

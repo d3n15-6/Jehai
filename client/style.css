@@ -1,13 +1,22 @@
 body {
     padding: 25px;
 }
+
 .chat-container {
     display: flex;
     height: 100vh;
 }
+
 .chat-box {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.messages {
     
 }
+
 .fa-2x {
     font-size: 1.5em;
 }
